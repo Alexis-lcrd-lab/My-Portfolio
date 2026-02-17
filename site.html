@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+    <style>
+        body {
+            background-color: #050606ea;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .rubrique {
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 32px;
+            background: #181a1b;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px #000a;
+        }
+        .rubrique h2 {
+            font-size: 1.6em;
+            color: #fff;
+            margin-top: 0;
+            padding-bottom: 10px;
+        }
+        .rubrique ul {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 0 0;
+        }
+        .rubrique li {
+            margin: 12px 0;
+        }
+        .rubrique a {
+            color: #0381dc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.15em;
+            line-height: 1.5;
+            display: block;
+            transition: text-decoration 0.2s ease;
+        }
+        .rubrique a:hover {
+            text-decoration: underline;
+        }
+        .rubrique a.math {
+            color: #7ecfff;
+        }
+        .rubrique a.math:hover {
+            text-decoration: underline;
+        }
+        .rubrique a.dithering {
+            color: #920b7e;
+        }
+        .rubrique a.dithering:hover {
+            text-decoration: underline;
+        }
+        footer a {
+            transition: opacity 0.2s ease;
+        }
+        footer a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+    <section class="rubrique">
+        <h2>Projects</h2>
+        <ul>
+        </ul>
+    </section>
+    
+    <section class="rubrique">
+        <h2>Mathematics</h2>
+        <ul>
+            <li><a href="dyadic-density.html" class="math">The Density of Dyadic Numbers in ℝ and Surprising Applications</a></li>
+            <li><a href="large-number-product.html" class="math">Speeding Up the Computation of the Product of Two Large Numbers</a></li>
+        </ul>
+    </section>
+    
+    <section class="rubrique">
+        <h2>Art</h2>
+        <ul>
+            <li><a href="dithering.html" class="dithering">Dithering</a></li>
+        </ul>
+    </section>
+    
+    <footer style="text-align:center; margin: 60px 0 40px 0; padding-top: 30px; border-top: 1px solid #333;">
+        <a href="resume.html" style="color:#7ecfff; text-decoration:none; font-size:1.1em; font-weight:500;">Alexis Lecordier</a>
+    </footer>
+</body>
+</html>

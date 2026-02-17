@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Density of Dyadic Numbers in ℝ, and Surprising Application</title>
+    <style>
+        body {
+            background-color: #050606ea;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 32px;
+            background: #181a1b;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px #000a;
+        }
+        h1 {
+            color: #7ecfff;
+            font-size: 2.2em;
+            margin-top: 0;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #7ecfff;
+            margin-top: 40px;
+            font-size: 1.5em;
+        }
+        .box {
+            margin: 24px 0;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .theorem-box {
+            background: #1a2633;
+            border-left: 5px solid #7ecfff;
+        }
+        .result-box {
+            background: #23272b;
+            border-left: 5px solid #a8ff78;
+        }
+        .induction-box {
+            background: #2c222b;
+            border: 1px dashed #ffa07a;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .label {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            display: block;
+            margin-bottom: 8px;
+            color: #7ecfff;
+        }
+        .induction-label { color: #ffa07a; }
+        strong { color: #7ecfff; }
+    </style>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                macros: {
+                    llbracket: '[\\![',
+                    rrbracket: ']\\!]'
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>The Density of Dyadic Numbers on \(\mathbb{R}\)</h1>
+        
+        <p>
+            The set of dyadic numbers is defined as \( D = \left\{ \frac{k}{2^n} \mid k \in \mathbb{Z}, n \in \mathbb{N} \right\} \). It is similar to the set of decimal numbers \( \mathbb{D} \), but in base 2.
+        </p>
+
+        <div class="box theorem-box">
+            <span class="label">Theorem</span>
+            <strong>Density of \( D \) in \( \mathbb{R} \):</strong><br>
+            The set of dyadic numbers \( D \) is dense in \( \mathbb{R} \).
+        </div>
+
+        <h2>Proof</h2>
+        <p>
+            For every \( n \in \mathbb{N} \), define \( x_n = \frac{\lfloor 2^n x \rfloor}{2^n} \in D \).<br>
+            Then, as \( n \to \infty \), \( x_n \to x \) by the <strong>squeeze theorem</strong>.
+        </p>
+
+        <h2>Application</h2>
+        <p>
+            Find all <strong>continuous</strong> functions \( f : \mathbb{R} \to \mathbb{R} \) two times differentiable at 0 such that \( f(0) = 1 \) and \( f(2x) = 2f(x)^2 - 1 \) for all \( x \in \mathbb{R} \).
+        </p>
+
+        <h3 style="color:#7ecfff; margin-top:30px;">Solution</h3>
+        <p>
+            Analysis shows that either \( f(x) \in [-1, 1] \) or \( f(x) \geq 1 \) for all \( x \in \mathbb{R} \).
+        </p>
+
+        <p><strong>Case 1: \( f(x) \in [-1, 1] \) for all \( x \in \mathbb{R} \)</strong></p>
+        
+        <p>
+            Let \( d \in D \). For any dyadic \( d = \frac{k}{2^n} \), the range of \( f \) implies there exists \( a_d \in \mathbb{R} \) such that \( f(d) = \cos(a_d d) \). 
+            The equation gives \( f(d/2) = \cos(a_d d / 2) \), and by induction \( f\left(\frac{d}{2^m}\right) = \cos\left(\frac{a_d d}{2^m}\right) \) for all \( m \in \mathbb{N} \). 
+            So for a fixed \( d \), on the "comb" of values \( C_{d} = \left\{ \frac{d}{2^m}, m \in \mathbb{N} \right\} \), \( a_d \) is constant.
+        </p>
+
+        <div class="box result-box">
+            <p>
+                Since \( f \) is two times differentiable at 0, we examine the limit of the difference quotient along this sequence \( h_m = \frac{d}{2^m} \) as \( m \to \infty \) with d fixed:
+                \[ \frac{f(h_m) - f(0)}{h_m^2} \xrightarrow[m \to \infty]{} \frac{f''(0)}{2} \]
+                Given \( f(h_m) = \cos(a_d h_m) \), the Taylor expansion at 0 gives:
+                \[ \frac{\cos(a_d h_m) - 1}{h_m^2} = \frac{(1 - \frac{(a_d h_m)^2}{2} + o(h_m^2)) - 1}{h_m^2} \xrightarrow[m \to \infty]{} -\frac{a_d^2}{2} \]
+            </p>
+        </div>
+
+        <p>
+            Comparing the limits, we get \( -\frac{a_d^2}{2} = \frac{f''(0)}{2} \), which means \( a_d^2 = -f''(0) \). 
+            Since \( f''(0) \) is a constant independent of \( d \), it follows that \( a_d^2 \) (and thus \( a_d \)) is the same for all dyadic numbers. Let this constant be \( a \).
+        </p>
+
+        <p>
+            Thus, \( f(d) = \cos(ad) \) for all \( d \in D \). By the <strong>density</strong> of dyadic numbers and the continuity of \( f \), we conclude:
+            \[ \forall x \in \mathbb{R}, f(x) = \cos(ax) \]
+        </p>
+
+        <p><strong>Case 2: \( f(x) \geq 1 \) for all \( x \in \mathbb{R} \)</strong></p>
+        <p>
+            By a similar argument using \( \cosh \) instead of \( \cos \), there exists \( a \in \mathbb{R} \) such that \( f(x) = \cosh(ax) \).
+        </p>
+
+        <div class="box theorem-box" style="border-left-color: #a8ff78;">
+            <span class="label" style="color:#a8ff78;">Conclusion</span>
+            The set of solutions is:
+            \[
+                S = \left\{ x \mapsto \cos(ax) \mid a \in \mathbb{R} \right\} \cup \left\{ x \mapsto \cosh(ax) \mid a \in \mathbb{R} \right\}
+            \]
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #333; margin: 40px 0;">
+
+        <h2>Bonus Application: Another functional Equation</h2>
+        <p>
+            Let \( g \) be a continuous function such that \( g(2x) = 4g(x) \) for all \( x \in \mathbb{R} \).
+        </p>
+
+        <div class="induction-box">
+            <span class="label induction-label">Induction \( P(n) \)</span>
+            We show by induction that for all \( n \in \mathbb{N} \):
+            \[ \forall k \in \mathbb{Z}, \quad g\left(\frac{k}{2^n}\right) = \frac{g(1) \cdot k^2}{2^{2n}} \]
+            <strong>Base case (\(n=0\)):</strong> \( g(k) = k^2 g(1) \).<br>
+            <strong>Inductive step (\(n \to n+1\)):</strong> \(  \text{Let k }\  \in \mathbb{Z}, g\left(\frac{k}{2^{n+1}}\right) = \frac{1}{4}g\left(\frac{k}{2^n}\right) = \frac{g(1)k^2}{2^{2n+2}}= \frac{g(1)k^2}{2^{2(n+1)}} \).
+        </div>
+
+        <p>
+            By density of \( D \) and continuity of \( g \), we conclude \( g(x) = g(1)x^2 \) for all \( x \in \mathbb{R} \).
+        </p>
+
+        <hr style="border: 0; border-top: 1px solid #333; margin: 40px 0;">
+
+        <h2>Generalization: \(\alpha\)-adic Numbers</h2>
+        <p>
+            The same reasoning can be applied to any base \(\alpha \in \mathbb{N} \setminus \{0, 1\}\). The set of <strong>\(\alpha\)-adic numbers</strong> \( D_\alpha = \{ \frac{k}{\alpha^n} \mid k \in \mathbb{Z}, n \in \mathbb{N} \} \) is dense in \(\mathbb{R}\).
+        </p>
+
+        <div class="box result-box" style="border-left-color: #7ecfff;">
+            <p>
+                Consider the functional equation \( g(px) = p^{\alpha} g(x) \) for a fixed \( \alpha \in \mathbb{N}^* \) and \( g \) continuous. 
+                Using the density of \( D_\alpha \), we can show that for all \( d \in D_\alpha \):
+                \[ g(d) = g(1) d^{\alpha} \]
+                By continuity, this property extends to the entire real line, yielding the general solution:
+                \[ g(x) = K x^{\alpha} \quad (\text{where } K = g(1)) \]
+            </p>
+        </div>
+
+        <p>
+            This demonstrates a profound link between the algebraic structure of a functional equation and the topological density of its "natural" number system. The base \(\alpha\) of the equation dictates which dense subset of \(\mathbb{R}\) is best suited to bridge the gap between discrete points and continuous functions.
+        </p>
+        
+    </div>
+    
+    <p style="color: #888; font-size: 0.75em; margin-top: 60px; text-align: center; opacity: 0.6;">
+        Alexis Lecordier — 11/22/25
+    </p>
+    
+</body>
+</html>
