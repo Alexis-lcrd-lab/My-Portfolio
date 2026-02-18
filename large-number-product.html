@@ -105,6 +105,14 @@
         a:hover {
             text-decoration: underline;
         }
+        .tikz-placeholder {
+            background: #1e1e1e;
+            border: 1px dashed #7ecfff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
     </style>
     <script>
         window.MathJax = {
@@ -415,7 +423,7 @@ def convolution(L1, L2):<br>
         </p>
 
         <p>
-            A naive evaluation of $P_a$ at one point costs $O(N)$, so evaluation at $N$ points costs $O(N^2)$. The idea of Cooley–Tukey is to exploit a recursive structure when $N$ is a power of 2. We thus assume $N = 2^s$ (if necessary, we pad the sequence $a$ with zeros up to the next power of 2, which amounts to completing $P_a$ with zero coefficients).
+            A naive evaluation of $P_a$ at one point costs $O(N)$, so evaluation at $N$ points costs $O(N^2)$. The idea of Cooley–Tukey is to exploit a recursive structure when $N$ is a power of 2. We thus assume $N = 2^s$.
         </p>
 
         <p>
@@ -431,57 +439,38 @@ def convolution(L1, L2):<br>
             $P_{\text{even}}(Y) = \sum_{r=0}^{N/2-1} a_{2r} Y^r, \quad P_{\text{odd}}(Y) = \sum_{r=0}^{N/2-1} a_{2r+1} Y^r$
         </p>
 
-        <p>
-            We want to evaluate $P_a$ at $X = \omega_N^k$. Now $(\omega_N^k)^2 = \omega_{N/2}^k$, so
-        </p>
-        <p style="text-align: center;">
-            $P_a(\omega_N^k) = P_{\text{even}}(\omega_{N/2}^k) + \omega_N^k P_{\text{odd}}(\omega_{N/2}^k)$
-        </p>
-
-        <p>
-            Thus, evaluation of $P_a$ at the $N$ $N$-th roots reduces to evaluation of two polynomials $P_{\text{even}}$ and $P_{\text{odd}}$ at the $N/2$ $(N/2)$-th roots.
-        </p>
-
-        <p>
-            Moreover, for any $d$-th root of unity $\omega_d$, we have the relation
-        </p>
-        <p style="text-align: center;">
-            $\omega_d^{i+d/2} = -\omega_d^i, \quad i = 0, \ldots, d/2-1$
-        </p>
-
-        <p>
-            In particular, by setting $d = N$, we obtain for $k = 0, \ldots, N/2-1$:
-        </p>
-        <p style="text-align: center;">
-            $\omega_N^{k+N/2} = -\omega_N^k$
-        </p>
-
-        <p>
-            We can then simultaneously calculate the two values
-        </p>
-        <p style="text-align: center;">
-            $P_a(\omega_N^k) \text{ and } P_a(\omega_N^{k+N/2})$
-        </p>
-        <p>
-            from the same quantities $P_{\text{even}}(\omega_{N/2}^k)$ and $P_{\text{odd}}(\omega_{N/2}^k)$:
-        </p>
-        <p style="text-align: center;">
-            $P_a(\omega_N^k) = P_{\text{even}}(\omega_{N/2}^k) + \omega_N^k P_{\text{odd}}(\omega_{N/2}^k)$<br>
-            $P_a(\omega_N^{k+N/2}) = P_{\text{even}}(\omega_{N/2}^k) - \omega_N^k P_{\text{odd}}(\omega_{N/2}^k)$
-        </p>
-
-        <p>
-            We then repeat exactly the same procedure on $P_{\text{even}}$ and $P_{\text{odd}}$ (by again separating their even/odd coefficients), which produces a recursive decomposition until reaching degree 0 polynomials (trivial evaluation). This recursion corresponds to a tree whose level $t$ manipulates evaluations at the $2^{s-t}$-th roots of unity.
-        </p>
-
-        <div style="text-align: center; margin: 20px 0;">
-            <p><strong>Figure 1 – Tree of reduction of roots of unity for $N = 8$ (descent by the mapping $x \mapsto x^2$)</strong></p>
-            <p style="font-family: 'Courier New', monospace; font-size: 0.85em;">
-                ω₀₈  ω₁₈  ω₂₈  ω₃₈  ω₄₈  ω₅₈  ω₆₈  ω₇₈<br>
-                &nbsp;&nbsp;&nbsp;ω₀₄  ω₁₄  ω₂₄  ω₃₄<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ω₀₂  ω₁₂<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ω₀₁ = 1
+        <div class="tikz-placeholder">
+            <strong>Figure 1 – Reduction tree of roots of unity for $N = 8$</strong>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">
+                (This TikZ diagram represents the descent $x \mapsto x^2$ from $\mathbb{U}_8$ to $\mathbb{U}_1$)
             </p>
+            <div class="code-box" style="text-align: left; background: #111;">
+\begin{tikzpicture}[<br>
+&nbsp;&nbsp;level distance=1.5cm,<br>
+&nbsp;&nbsp;level 1/.style={sibling distance=4cm},<br>
+&nbsp;&nbsp;level 2/.style={sibling distance=2cm},<br>
+&nbsp;&nbsp;level 3/.style={sibling distance=1cm},<br>
+&nbsp;&nbsp;every node/.style={circle, draw=cyan, fill=cyan!10, inner sep=2pt, font=\small, text=black}<br>
+]<br>
+\node {$\mathbb{U}_8$}<br>
+&nbsp;&nbsp;child {node {$\mathbb{U}_4$}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_2$}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_1$}} child {node {$\mathbb{U}_1$}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_2$}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_1$}} child {node {$\mathbb{U}_1$}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;child {node {$\mathbb{U}_4$}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_2$}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_1$}} child {node {$\mathbb{U}_1$}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_2$}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_1$}} child {node {$\mathbb{U}_1$}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;};<br>
+\end{tikzpicture}
+            </div>
         </div>
 
         <p>
@@ -510,75 +499,18 @@ def FFT(L):<br>
 
         <h3>3.3 Complexity Calculation (Counting by Levels)</h3>
         <p>
-            Suppose $n = 2^s$ (after zero-padding if necessary). The recursion tree then has
+            Suppose $n = 2^s$. The recursion tree then has $s = \log_2(n)$ levels. At each level, the total work (separating lists and performing butterfly combinations) is $O(n)$. Thus, the total complexity is:
         </p>
         <p style="text-align: center;">
-            $s = \left\lfloor \frac{\ln(n)}{\ln(2)} \right\rfloor \sim \ln(n)$
-        </p>
-        <p>
-            levels.
-        </p>
-
-        <p>
-            <strong>Descent (even/odd separation):</strong> At level $k$ (with $1 \leq k \leq s$), we manipulate sublists of size $n/2^k$. The total cost of the descent is bounded by
-        </p>
-        <p style="text-align: center;">
-            $\sum_{k=1}^{s} \left(\frac{n}{2^k} + 1\right)$
-        </p>
-        <p>
-            where $n/2^k$ corresponds to the work of separation (construction of even/odd sublists), and $1$ to the calculation of the root $w$ associated with the considered level.
-        </p>
-
-        <p>
-            <strong>Ascent:</strong> The ascent traverses the same $s$ levels. At level $k$, we reconstruct a list of size $n/2^{s-k}$. We thus perform $n/2^{s-k}$ butterfly-type combinations, each consisting of two lines:
-        </p>
-        <p style="text-align: center;">
-            $y[i] = y_{\text{even}}[i] + (w^i)y_{\text{odd}}[i]$<br>
-            $y[i+n/2] = y_{\text{even}}[i] - (w^i)y_{\text{odd}}[i]$
-        </p>
-
-        <p>
-            For one line, the term $1$ corresponds to addition/subtraction, while the term $\text{cplx}((w^i)y_{\text{odd}}[i])$ corresponds to the product calculation. Thus, the cost of the ascent is bounded by
-        </p>
-        <p style="text-align: center;">
-            $\sum_{k=1}^{s} \left(\frac{n}{2^{s-k}} \cdot 2(1 + \text{cplx}((w^i)y_{\text{odd}}[i]))\right)$
-        </p>
-
-        <p>
-            <strong>Cost of $(w^i)y_{\text{odd}}[i]$ and Implementation Choice:</strong> In our case, we have already calculated and stored the root $w$ associated with the considered size. Consequently, the calculation of the term $(w^i)y_{\text{odd}}[i]$ reduces to an exponentiation of $w$ (which is an addition of arguments) and a multiplication by an integer ($y_{\text{odd}}[i]$), so its complexity is of order
-        </p>
-        <p style="text-align: center;">
-            $\text{cplx}((w^i)y_{\text{odd}}[i]) = O(1)$
-        </p>
-
-        <p>
-            <strong>Summary:</strong> By combining descent and ascent, we obtain the bound
-        </p>
-        <p style="text-align: center;">
-            $\sum_{k=1}^{s} \left(\frac{n}{2^k} + 1\right) + \sum_{k=1}^{s} \left(\frac{n}{2^{s-k}} \cdot 2(1 + O(1))\right)$
-        </p>
-        <p>
-            with $s \sim \ln(n)$. With s going to infinity we have:
-        </p>
-        <p style="text-align: center;">
-            $O(n \ln n)$
-        </p>
-
-        <p>
-            We thus obtain that the computation of the convolution of $a$ and $b$ via FFT decomposes as:
-        </p>
-        <p style="text-align: center;">
-            $\underbrace{O(n\ln n)}_{\text{FFT of $a$}} + \underbrace{O(n\ln n)}_{\text{FFT of $b$}} + \underbrace{O(n)}_{\text{pointwise product}} + \underbrace{O(n\ln n)}_{\text{Inverse FFT}} = O(n\ln n)$
+            $O(n \log n)$
         </p>
 
         <h2>Conclusion</h2>
 
         <div style="text-align:center; margin:20px 0;">
             <img src="images/fft_graph.png" alt="Comparative timing: FFT vs naive" style="max-width:100%; height:auto; border:1px solid #333; border-radius:6px;" />
-            <p style="color:#999; margin-top:8px;">Figure 2 – Execution time: FFT (orange) vs naive method (blue). Note: the graph labels are in French.</p>
-            <p style="color:#999; margin-top:6px;">The FFT algorithm is implemented in libraries such as NumPy, which provide variants and optimizations (real-valued computation, advanced numerical techniques) to reduce rounding errors on the real parts of complex numbers during transforms.</p>
+            <p style="color:#999; margin-top:8px;">Figure 2 – Execution time: FFT (orange) vs naive method (blue).</p>
         </div>
-
         
     </div>
 </body>
