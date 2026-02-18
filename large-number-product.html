@@ -441,37 +441,12 @@ def convolution(L1, L2):<br>
 
         <div class="tikz-placeholder">
             <strong>Figure 1 – Reduction tree of roots of unity for $N = 8$</strong>
-            <p style="font-size: 0.9em; margin-top: 10px; color: #999;">
-                (This TikZ diagram represents the descent $x \mapsto x^2$ from $\mathbb{U}_8$ to $\mathbb{U}_1$)
-            </p>
-            <div class="code-box" style="text-align: left; background: #111;">
-\begin{tikzpicture}[<br>
-&nbsp;&nbsp;level distance=1.5cm,<br>
-&nbsp;&nbsp;level 1/.style={sibling distance=4cm},<br>
-&nbsp;&nbsp;level 2/.style={sibling distance=2cm},<br>
-&nbsp;&nbsp;level 3/.style={sibling distance=1cm},<br>
-&nbsp;&nbsp;every node/.style={circle, draw=cyan, fill=cyan!10, inner sep=2pt, font=\small, text=black}<br>
-]<br>
-\node {$\mathbb{U}_8$}<br>
-&nbsp;&nbsp;child {node {$\mathbb{U}_4$}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_2$}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_1$}} child {node {$\mathbb{U}_1$}}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;} <br>
-&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_2$}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_1$}} child {node {$\mathbb{U}_1$}}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;child {node {$\mathbb{U}_4$}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_2$}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_1$}} child {node {$\mathbb{U}_1$}}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;} <br>
-&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_2$}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;child {node {$\mathbb{U}_1$}} child {node {$\mathbb{U}_1$}}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;};<br>
-\end{tikzpicture}
-            </div>
-        </div>
+                <div style="text-align: center; margin-top: 10px;">
+        <p style="font-size: 0.9em; color: #999; margin-bottom: 10px;">
+            (This diagram represents the descent $x \mapsto x^2$ from $\mathbb{U}_8$ to $\mathbb{U}_1$)
+        </p>
+        <img src="tree.png" alt="Diagramme de descente de U8 vers U1" style="max-width: 100%; height: auto; border-radius: 4px;">
+    </div>
 
         <p>
             <strong>Algorithm (Python):</strong>
